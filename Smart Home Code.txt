@@ -1,0 +1,70 @@
+// C++ code
+//
+float x,y,z,temp;
+void setup()
+{
+  Serial.begin(9600);
+  pinMode(2, OUTPUT);
+  pinMode(7, INPUT);
+  pinMode(8, OUTPUT);
+  pinMode(13, OUTPUT);
+  pinMode(A4, INPUT);
+  pinMode(A5, INPUT);
+}
+
+void loop()
+{
+  x=analogRead(A5);
+  y=analogRead(A4);
+  z=digitalRead(7);
+  temp = (double)y / 1024;       
+  temp = temp * 5;                 
+  temp = temp - 0.5;               
+  temp = temp * 100;
+  if(x<=550)
+  {
+  	digitalWrite(8, HIGH);
+    Serial.println(x);
+    delay(1000);
+    Serial.println("Room is Dark..........Light's ON");
+    delay(1000);
+  }
+  else
+  {
+  	digitalWrite(8, LOW);
+    Serial.println(x);
+    delay(1000);
+    Serial.println("Room is Light..........Light's OFF");
+    delay(1000);
+  }
+  
+  if(temp>=30)
+  {
+  	digitalWrite(2, HIGH);
+    Serial.println(temp);
+    delay(1000);
+    Serial.println("Temperature is High..........Fan ON");
+    delay(1000);
+  }
+  else
+  {
+  	digitalWrite(2, LOW);
+    Serial.println(temp);
+    delay(1000);
+    Serial.println("Temperature is Low..........Fan OFF");
+    delay(1000);
+  }
+  if(z>0)
+  {
+  	digitalWrite(13, HIGH);
+    Serial.println(z);
+    Serial.println("Someone is Entered........");
+  }
+  else
+  {
+  	digitalWrite(13, LOW);
+    Serial.println(z);
+    Serial.println("No one is there........");
+    
+  }
+}
